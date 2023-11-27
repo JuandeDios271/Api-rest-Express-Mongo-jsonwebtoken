@@ -14,13 +14,14 @@ const whiteList = [process.env.ORIGIN1]
 
 app.use(cors({
     origin: function(origin, callback){
-        if(whiteList.includes(origin)){
+        if(!origin || whiteList.includes(origin)){
             return callback(null, origin);
         }
         return callback(
             "Error de Cors origin: " + origin + "No autorizado"
         );
-    }
+    },
+    credentials: true
 }));
 
 
@@ -37,4 +38,4 @@ app.use('/api/v1/links', linkRouter);
 //app.use(express.static('public'))
 
 const PORT = process.env.PORT || 5000
-app.listen(PORT, () => console.log("Juan hola http://localhost:"+PORT));
+app.listen(PORT, () => console.log("http://localhost:"+PORT));
